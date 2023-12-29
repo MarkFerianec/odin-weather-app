@@ -48,7 +48,19 @@ function fetchForecastFromWeatherAPIAndLogTemperatures() {
   });
 }
 
-fetchForecastFromWeatherAPIAndLogTemperatures();
+const submitButtonSelector = document.querySelector('#submit');
+const locationTextSelector = document.querySelector('#location');
+
+submitButtonSelector.addEventListener('click', submitLocationToWeatherAPI);
+
+function submitLocationToWeatherAPI() {
+  event.preventDefault();
+  // console.log(locationTextSelector.value);
+  fetchForecastFromWeatherAPI(locationTextSelector.value);
+  locationTextSelector.value = '';
+}
+
+// fetchForecastFromWeatherAPIAndLogTemperatures(); //commented out temporarily.
 
 // processForecastAndReturnCurrentTemp();
 
