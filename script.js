@@ -55,34 +55,41 @@ submitButtonSelector.addEventListener('click', submitLocationToWeatherAPI);
 
 function submitLocationToWeatherAPI() {
   event.preventDefault();
-  // console.log(locationTextSelector.value);
-  fetchForecastFromWeatherAPI(locationTextSelector.value);
+
+  clearCity();
+
+  fetchForecastFromWeatherAPI(locationTextSelector.value).then(function () {
+    currentInfoDisplay();
+  });
+
   locationTextSelector.value = '';
 }
 
-// function defaultForecastFetch() {
-//   fetchForecastFromWeatherAPI('Calgary');
-// }
-
-// defaultForecastFetch();
+function clearCity() {
+  currentDivSelector = document.querySelector('.current');
+  currentCitySelector = document.querySelector('.city');
+  currentDivSelector.removeChild(currentCitySelector);
+}
 
 function currentInfoDisplay() {
   currentDivSelector = document.querySelector('.current');
 
+  const city = document.createElement('div');
+  city.classList.add('city');
+  currentDivSelector.appendChild(city);
+
   const cityName = document.createElement('div');
-  currentDivSelector.appendChild(cityName);
+  city.appendChild(cityName);
   cityName.textContent = `${weatherData.location.name}, ${weatherData.location.region}, ${weatherData.location.country}`;
 
   const cityTime = document.createElement('div');
-  currentDivSelector.appendChild(cityTime);
+  city.appendChild(cityTime);
   cityTime.textContent = weatherData.location.localtime;
 
   const cityTemperature = document.createElement('div');
-  currentDivSelector.appendChild(cityTemperature);
+  city.appendChild(cityTemperature);
   cityTemperature.textContent = `${weatherData.current.temp_c} Celsius`;
 }
-
-// currentTemperatureDisplay();
 
 function defaultAPIFetchAndDisplay() {
   fetchForecastFromWeatherAPI('Calgary').then(function () {
@@ -92,10 +99,4 @@ function defaultAPIFetchAndDisplay() {
 
 defaultAPIFetchAndDisplay();
 
-// const currentDivSelector = document.querySelector('.current');
-
 // fetchForecastFromWeatherAPIAndLogTemperatures(); //commented out temporarily.
-
-// processForecastAndReturnCurrentTemp();
-
-// fetchForecastFromWeatherAPI().then(processForecastAndReturnCurrentTemp());
