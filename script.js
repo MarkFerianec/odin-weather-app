@@ -52,7 +52,6 @@ submitButtonSelector.addEventListener('click', submitLocationToWeatherAPI);
 function submitLocationToWeatherAPI() {
   event.preventDefault();
 
-  // clearCity();
   clearLocationAndForecasts();
 
   fetchForecastFromWeatherAPI(locationTextSelector.value).then(function () {
@@ -62,12 +61,6 @@ function submitLocationToWeatherAPI() {
 
   locationTextSelector.value = '';
 }
-
-// function clearCity() {
-//   currentDivSelector = document.querySelector('.current');
-//   currentCitySelector = document.querySelector('.city');
-//   currentDivSelector.removeChild(currentCitySelector);
-// }
 
 function clearLocationAndForecasts() {
   currentDivSelector = document.querySelector('.current');
@@ -133,8 +126,6 @@ function forecastDisplay() {
   }
 }
 
-// forecastDisplay();
-
 function defaultAPIFetchAndDisplay() {
   fetchForecastFromWeatherAPI('Calgary').then(function () {
     currentInfoDisplay();
@@ -148,7 +139,7 @@ let celsiusScale = true;
 
 function scaleChanger() {
   celsiusScale = !celsiusScale;
-  console.log(celsiusScale);
+  // console.log(celsiusScale);
   clearLocationAndForecasts();
   currentInfoDisplay();
   forecastDisplay();
@@ -158,4 +149,4 @@ const scaleButtonSelector = document.querySelector('.scale');
 
 scaleButtonSelector.addEventListener('click', scaleChanger);
 
-// fetchForecastFromWeatherAPIAndLogTemperatures(); //commented out temporarily.
+// fetchForecastFromWeatherAPIAndLogTemperatures();

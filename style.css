@@ -1,0 +1,12 @@
+.main-container {
+    padding: 1rem;
+}
+
+.current {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.forecast {
+    padding-top: 1rem;
+}
