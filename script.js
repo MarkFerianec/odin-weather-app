@@ -53,7 +53,7 @@ function submitLocationToWeatherAPI() {
   event.preventDefault();
 
   // clearCity();
-  clearCityAndForecasts();
+  clearLocationAndForecasts();
 
   fetchForecastFromWeatherAPI(locationTextSelector.value).then(function () {
     currentInfoDisplay();
@@ -69,7 +69,7 @@ function submitLocationToWeatherAPI() {
 //   currentDivSelector.removeChild(currentCitySelector);
 // }
 
-function clearCityAndForecasts() {
+function clearLocationAndForecasts() {
   currentDivSelector = document.querySelector('.current');
   currentCitySelector = document.querySelector('.location');
   currentDivSelector.removeChild(currentCitySelector);
@@ -100,7 +100,11 @@ function currentInfoDisplay() {
 
   const locationTemperature = document.createElement('div');
   location.appendChild(locationTemperature);
-  locationTemperature.textContent = `${weatherData.current.temp_c} °C`;
+  if (celsiusScale === true) {
+    locationTemperature.textContent = `${weatherData.current.temp_c} °C`;
+  } else {
+    locationTemperature.textContent = `${weatherData.current.temp_f} °F`;
+  }
 }
 
 function forecastDisplay() {
@@ -118,9 +122,15 @@ function forecastDisplay() {
   forecastDiv.appendChild(firstElement);
   forecastDiv.appendChild(secondElement);
 
-  zeroElement.textContent = `${weatherData.forecast.forecastday[0].date} Max temp: ${weatherData.forecast.forecastday[0].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[0].day.mintemp_c} °C`;
-  firstElement.textContent = `${weatherData.forecast.forecastday[1].date} Max temp: ${weatherData.forecast.forecastday[1].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[1].day.mintemp_c} °C`;
-  secondElement.textContent = `${weatherData.forecast.forecastday[2].date} Max temp: ${weatherData.forecast.forecastday[2].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[2].day.mintemp_c} °C`;
+  if (celsiusScale === true) {
+    zeroElement.textContent = `${weatherData.forecast.forecastday[0].date} Max temp: ${weatherData.forecast.forecastday[0].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[0].day.mintemp_c} °C`;
+    firstElement.textContent = `${weatherData.forecast.forecastday[1].date} Max temp: ${weatherData.forecast.forecastday[1].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[1].day.mintemp_c} °C`;
+    secondElement.textContent = `${weatherData.forecast.forecastday[2].date} Max temp: ${weatherData.forecast.forecastday[2].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[2].day.mintemp_c} °C`;
+  } else {
+    zeroElement.textContent = `${weatherData.forecast.forecastday[0].date} Max temp: ${weatherData.forecast.forecastday[0].day.maxtemp_f} °F Min temp: ${weatherData.forecast.forecastday[0].day.mintemp_f} °F`;
+    firstElement.textContent = `${weatherData.forecast.forecastday[1].date} Max temp: ${weatherData.forecast.forecastday[1].day.maxtemp_f} °F Min temp: ${weatherData.forecast.forecastday[1].day.mintemp_f} °F`;
+    secondElement.textContent = `${weatherData.forecast.forecastday[2].date} Max temp: ${weatherData.forecast.forecastday[2].day.maxtemp_f} °F Min temp: ${weatherData.forecast.forecastday[2].day.mintemp_f} °F`;
+  }
 }
 
 // forecastDisplay();
@@ -133,5 +143,19 @@ function defaultAPIFetchAndDisplay() {
 }
 
 defaultAPIFetchAndDisplay();
+
+let celsiusScale = true;
+
+function scaleChanger() {
+  celsiusScale = !celsiusScale;
+  console.log(celsiusScale);
+  clearLocationAndForecasts();
+  currentInfoDisplay();
+  forecastDisplay();
+}
+
+const scaleButtonSelector = document.querySelector('.scale');
+
+scaleButtonSelector.addEventListener('click', scaleChanger);
 
 // fetchForecastFromWeatherAPIAndLogTemperatures(); //commented out temporarily.
