@@ -100,7 +100,7 @@ function currentInfoDisplay() {
 
   const locationTemperature = document.createElement('div');
   location.appendChild(locationTemperature);
-  locationTemperature.textContent = `${weatherData.current.temp_c} Celsius`;
+  locationTemperature.textContent = `${weatherData.current.temp_c} °C`;
 }
 
 function forecastDisplay() {
@@ -118,9 +118,9 @@ function forecastDisplay() {
   forecastDiv.appendChild(firstElement);
   forecastDiv.appendChild(secondElement);
 
-  zeroElement.textContent = `${weatherData.forecast.forecastday[0].date} Max temp: ${weatherData.forecast.forecastday[0].day.maxtemp_c} C Min temp: ${weatherData.forecast.forecastday[0].day.mintemp_c} C`;
-  firstElement.textContent = `${weatherData.forecast.forecastday[1].date} Max temp: ${weatherData.forecast.forecastday[1].day.maxtemp_c} C Min temp: ${weatherData.forecast.forecastday[1].day.mintemp_c} C`;
-  secondElement.textContent = `${weatherData.forecast.forecastday[2].date} Max temp: ${weatherData.forecast.forecastday[2].day.maxtemp_c} C Min temp: ${weatherData.forecast.forecastday[2].day.mintemp_c} C`;
+  zeroElement.textContent = `${weatherData.forecast.forecastday[0].date} Max temp: ${weatherData.forecast.forecastday[0].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[0].day.mintemp_c} °C`;
+  firstElement.textContent = `${weatherData.forecast.forecastday[1].date} Max temp: ${weatherData.forecast.forecastday[1].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[1].day.mintemp_c} °C`;
+  secondElement.textContent = `${weatherData.forecast.forecastday[2].date} Max temp: ${weatherData.forecast.forecastday[2].day.maxtemp_c} °C Min temp: ${weatherData.forecast.forecastday[2].day.mintemp_c} °C`;
 }
 
 // forecastDisplay();
