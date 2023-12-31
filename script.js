@@ -10,8 +10,6 @@ async function fetchForecastFromWeatherAPI(location) {
   //   return weatherData;
 }
 
-// fetchForecastFromWeatherAPI('London');
-
 function returnCurrentTemperature() {
   //   weatherData = await fetchForecastFromWeatherAPI('London');
   console.log(weatherData.current.temp_c);
@@ -35,8 +33,6 @@ function returnForecastTemperatures() {
   //   console.log(weatherData.forecast.forecastday[2].day.mintemp_f);
 }
 
-// function returnThreeDayForecastTemperatures() {}
-
 function logTemperatures() {
   returnCurrentTemperature();
   returnForecastTemperatures();
@@ -56,19 +52,31 @@ submitButtonSelector.addEventListener('click', submitLocationToWeatherAPI);
 function submitLocationToWeatherAPI() {
   event.preventDefault();
 
-  clearCity();
+  // clearCity();
+  clearCityAndForecasts();
 
   fetchForecastFromWeatherAPI(locationTextSelector.value).then(function () {
     currentInfoDisplay();
+    forecastDisplay();
   });
 
   locationTextSelector.value = '';
 }
 
-function clearCity() {
+// function clearCity() {
+//   currentDivSelector = document.querySelector('.current');
+//   currentCitySelector = document.querySelector('.city');
+//   currentDivSelector.removeChild(currentCitySelector);
+// }
+
+function clearCityAndForecasts() {
   currentDivSelector = document.querySelector('.current');
   currentCitySelector = document.querySelector('.city');
   currentDivSelector.removeChild(currentCitySelector);
+
+  forecastDivSelector = document.querySelector('.forecast');
+  forecastsDivSelector = document.querySelector('.forecasts');
+  forecastDivSelector.removeChild(forecastsDivSelector);
 }
 
 function currentInfoDisplay() {
@@ -91,9 +99,32 @@ function currentInfoDisplay() {
   cityTemperature.textContent = `${weatherData.current.temp_c} Celsius`;
 }
 
+function forecastDisplay() {
+  forecastDivSelector = document.querySelector('.forecast');
+
+  const forecastDiv = document.createElement('div');
+  forecastDiv.classList.add('forecasts');
+  forecastDivSelector.appendChild(forecastDiv);
+
+  const zeroElement = document.createElement('div');
+  const firstElement = document.createElement('div');
+  const secondElement = document.createElement('div');
+
+  forecastDiv.appendChild(zeroElement);
+  forecastDiv.appendChild(firstElement);
+  forecastDiv.appendChild(secondElement);
+
+  zeroElement.textContent = `${weatherData.forecast.forecastday[0].date} Max temp: ${weatherData.forecast.forecastday[0].day.maxtemp_c} C Min temp: ${weatherData.forecast.forecastday[0].day.mintemp_c} C`;
+  firstElement.textContent = `${weatherData.forecast.forecastday[1].date} Max temp: ${weatherData.forecast.forecastday[1].day.maxtemp_c} C Min temp: ${weatherData.forecast.forecastday[1].day.mintemp_c} C`;
+  secondElement.textContent = `${weatherData.forecast.forecastday[2].date} Max temp: ${weatherData.forecast.forecastday[2].day.maxtemp_c} C Min temp: ${weatherData.forecast.forecastday[2].day.mintemp_c} C`;
+}
+
+// forecastDisplay();
+
 function defaultAPIFetchAndDisplay() {
   fetchForecastFromWeatherAPI('Calgary').then(function () {
     currentInfoDisplay();
+    forecastDisplay();
   });
 }
 
