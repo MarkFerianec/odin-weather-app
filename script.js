@@ -71,7 +71,7 @@ function submitLocationToWeatherAPI() {
 
 function clearCityAndForecasts() {
   currentDivSelector = document.querySelector('.current');
-  currentCitySelector = document.querySelector('.city');
+  currentCitySelector = document.querySelector('.location');
   currentDivSelector.removeChild(currentCitySelector);
 
   forecastDivSelector = document.querySelector('.forecast');
@@ -82,25 +82,25 @@ function clearCityAndForecasts() {
 function currentInfoDisplay() {
   currentDivSelector = document.querySelector('.current');
 
-  const city = document.createElement('div');
-  city.classList.add('city');
-  currentDivSelector.appendChild(city);
+  const location = document.createElement('div');
+  location.classList.add('location');
+  currentDivSelector.appendChild(location);
 
-  const cityLocation = document.createElement('div');
-  city.appendChild(cityLocation);
-  cityLocation.textContent = `${weatherData.location.name}, ${weatherData.location.region}, ${weatherData.location.country}`;
+  const locationName = document.createElement('div');
+  location.appendChild(locationName);
+  locationName.textContent = `${weatherData.location.name}, ${weatherData.location.region}, ${weatherData.location.country}`;
 
-  const cityCondition = document.createElement('div');
-  city.appendChild(cityCondition);
-  cityCondition.textContent = `${weatherData.current.condition.text}`;
+  const locationCondition = document.createElement('div');
+  location.appendChild(locationCondition);
+  locationCondition.textContent = `${weatherData.current.condition.text}`;
 
-  const cityTime = document.createElement('div');
-  city.appendChild(cityTime);
-  cityTime.textContent = weatherData.location.localtime;
+  const locationTime = document.createElement('div');
+  location.appendChild(locationTime);
+  locationTime.textContent = weatherData.location.localtime;
 
-  const cityTemperature = document.createElement('div');
-  city.appendChild(cityTemperature);
-  cityTemperature.textContent = `${weatherData.current.temp_c} Celsius`;
+  const locationTemperature = document.createElement('div');
+  location.appendChild(locationTemperature);
+  locationTemperature.textContent = `${weatherData.current.temp_c} Celsius`;
 }
 
 function forecastDisplay() {
