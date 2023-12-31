@@ -86,9 +86,13 @@ function currentInfoDisplay() {
   city.classList.add('city');
   currentDivSelector.appendChild(city);
 
-  const cityName = document.createElement('div');
-  city.appendChild(cityName);
-  cityName.textContent = `${weatherData.location.name}, ${weatherData.location.region}, ${weatherData.location.country}`;
+  const cityLocation = document.createElement('div');
+  city.appendChild(cityLocation);
+  cityLocation.textContent = `${weatherData.location.name}, ${weatherData.location.region}, ${weatherData.location.country}`;
+
+  const cityCondition = document.createElement('div');
+  city.appendChild(cityCondition);
+  cityCondition.textContent = `${weatherData.current.condition.text}`;
 
   const cityTime = document.createElement('div');
   city.appendChild(cityTime);
